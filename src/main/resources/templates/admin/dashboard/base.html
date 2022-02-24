@@ -7,10 +7,10 @@
 	<head>
 		<title layout:fragment="title">Agelgil Admin</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1"> 	
-		<link rel="stylesheet" th:href="@{/static/hotel/libs/bootstrap/bootstrapo.css}">
-		<link rel="stylesheet" th:href="@{/static/hotel/libs/bootstrap/bootstrap.min.css}">
-		<link rel="stylesheet" th:href="@{/static/lib/fontawesome/css/all.css}">
-		<link rel="stylesheet" th:href="@{/static/lib/css/local.css}">
+		<link rel="stylesheet" th:href="@{/static/res/hotel/libs/bootstrap/bootstrapo.css}">
+		<link rel="stylesheet" th:href="@{/static/res/hotel/libs/bootstrap/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/static/res/lib/fontawesome/css/all.css}">
+		<link rel="stylesheet" th:href="@{/static/res/lib/css/local.css}">
 	</head>
 	<body class="container-fluid bg-light">
 		<div class="row vh-100">
@@ -19,12 +19,10 @@
 				<button class="btn btn-light" onclick="document.getElementById('navBar').classList.toggle('d-none')" ><i class="fas fa-bars" aria-hidden="true"></i></button>
 			</div>
 			
-<<<<<<< HEAD
-=======
 			<div class="col-lg-3 col-12 h-100 py-lg-3 px-lg-5 p-0 position-fixed local-zi-1 d-none d-lg-block" id="navBar">
 				<nav class="h-100 bg-primary local-br-lg-3 local-br-0 rounded mx-auto py-3 px-4" style="box-shadow: 0 0rem 1rem rgb(0, 0, 0) !important;">
 					<div class="bg-white rounded local-br-0 local-br-2 p-2 d-flex">
-						<img src="/static/hotel/core/images/logo-horizontal.png" class="col-11 mx-auto">
+						<img src="/static/res/hotel/core/images/logo-horizontal.png" class="col-11 mx-auto">
 					</div>
 					<ul class="mt-5 nav flex-column">
 						<li th:each="tab: ${navTabs}" class="nav-item my-2">
@@ -37,7 +35,6 @@
 				</nav>
 			</div>
 
->>>>>>> 8953eb0f8c1aeabb43e045f293faf7b38a4da5a5
 			<div class="col-lg-9 col-12 v-100 ml-auto p-lg-5 p-1">
 				<header class="d-flex mb-5">
 					<div class="ml-auto position-relative">
@@ -59,7 +56,7 @@
 			</div>
 		</div>
 		
-		<script src="/static/lib/js/bootstrap.bundle.min.js"></script>
+		<script src="/static/res/lib/js/bootstrap.bundle.min.js"></script>
 	</body>
 	
 	  

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{admin/dashboard/base.html}"
+	  >
+	  <head>
+		  <title layout:fragment="title">MANAGE CLIENTS</title>
+	  </head>
+	<body>
+		
+		<main layout:fragment="main">
+			<div class="container">
+				<h1 class="fw-bold">HOTELS</h1>
+				<div class="row fw-bold fs-4 mt-5 pb-5 border-bottom">
+					<div class="col-4">
+						Name
+					</div>
+					<div class="col-4">
+						E-Mail
+					</div>
+					<div class="col-4">
+
+					</div>
+				</div>
+				<div th:each="client: ${clients}" class="row py-4 border-bottom mt-5">
+					<div class="col-4 fw-bold">
+						[[${client.fullName}]]
+					</div>
+					<div class="col-4">
+						[[${client.user.username}]]
+					</div>
+					<div class="col ml-auto text-right d-flex">
+						<form class="" action="/admin/dashbaord/clients/delete" method="post">
+							<button 
+						</form>
+						<button class="btn btn-outline-success ml-auto rounded rounded-pill px-5" data-bs-toggle="modal" th:data-bs-target="${'#modal'+hotel.id}">VIEW</button>
+					</div>
+				</div>
+
+			</div>
+		</main>
+
+	</body>
+
+</html>

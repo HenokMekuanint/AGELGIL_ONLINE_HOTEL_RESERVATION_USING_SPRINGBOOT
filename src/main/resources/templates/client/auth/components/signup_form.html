@@ -1,0 +1,48 @@
+<form class="w-100" method="post" th:object="${signUpForm}" th:action="@{/client/sign-up}">
+	<h2 class="font-weight-bold text-center mb-5">Sign Up to Agelgil</h2>
+
+	<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+
+	<div class="mt-4">
+		<label for="full-name" class="form-label mb-1">Full Name</label>
+		<div class="input-group">
+			<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+			<input type="text" class="form-control border-left-0 bg-light" placeholder="Full Name" th:field="*{fullName}">
+		</div>
+		<div th:if="${#fields.hasErrors('fullName')}" class="text-danger" th:errors="*{fullName}"></div>
+	</div>
+
+	<div class="mt-4">
+		<label for="email" class="form-label mb-1">E-Mail</label>
+		<div class="input-group">
+			<span class="input-group-text bg-light border-right-0"><i class="fas fa-at text-secondary"></i></span>
+			<input type="email" class="form-control border-left-0 bg-light" placeholder="E-Mail" th:field="*{email}">
+		</div>
+		<div th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></div>
+		<div th:if="${#fields.hasErrors('userExists')}" class="text-danger" th:errors="*{userExists}"></div>
+	</div>
+
+	<div class="mt-4">
+		<label for="password" class="form-label mb-1">Password</label>
+		<div class="input-group">
+			<span class="input-group-text bg-light border-right-0"><i class="fas fa-lock text-secondary"></i></span>
+			<input type="password" class="form-control border-left-0 bg-light" placeholder="Password" th:field="*{password}">
+		</div>
+		<div th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></div>
+	</div>
+
+	<div class="mt-4">
+		<label for="confirmPassword" class="form-label mb-1">Confirm Password</label>
+		<div class="input-group">
+			<span class="input-group-text bg-light border-right-0"><i class="fas fa-lock text-secondary"></i></span>
+			<input type="password" class="form-control border-left-0 bg-light" placeholder="Confirm Password" th:field="*{confirmPassword}">
+		</div>
+		<div th:if="${#fields.hasErrors('confirmPassword')}" class="text-danger" th:errors="*{confirmPassword}"></div>
+		<div th:if="${#fields.hasErrors('passwordMatching')}" class="text-danger" th:errors="*{passwordMatching}"></div>
+	</div>
+	
+	<div class="local-mt-6 d-flex">
+		<input type="submit" value="SIGN UP" class="mx-auto rounded-pill btn btn-primary py-2 px-5">
+	</div>
+	
+</form>

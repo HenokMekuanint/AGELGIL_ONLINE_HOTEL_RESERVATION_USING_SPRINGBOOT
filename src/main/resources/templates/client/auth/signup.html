@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{client/base.html}"
+	  >
+	<head>
+		<title layout:fragment="title">AGELGIL | LOGIN</title>
+	</head>
+	<body>
+		
+		<main layout:fragment="main" class="container-fluid vh-100 d-flex">
+			
+			<div class="col-md-7 col-12 m-auto" layout:insert="~{client/auth/components/signup_form}"></div>
+		</main>
+	</body>
+</html>

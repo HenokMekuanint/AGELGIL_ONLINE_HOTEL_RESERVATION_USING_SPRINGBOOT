@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{client/base.html}"
+	  >
+	  <head>
+		  <title layout:fragment="title">WELCOME TO AGELGIL</title>
+	  </head>
+	<body>
+		
+		<main layout:fragment="main" class="container-fluid local-mb-8">
+		
+			<div class="row local-pt-8 local-mb-8" style="background-image: url('/static/res/client/home/images/top_background.jpeg'); background-size: cover;">
+				
+				<div class="col-lg-6 col-12 mx-auto">
+					<h1 class="text-light font-weight-bold pl-0 display-3">FIND THE PERFECT HOTEL</h1>
+					<form class="bg-white border border-dark row p-5 rounded local-br-2 local-mt-6" action="/client/hotel/filter/" method="get" style="margin-bottom: -10em;">
+						<div class="col-lg-6 col-12 my-4 mx-auto">
+							<label for="city" class="form-label mb-1 font-weight-bold">DESTINATION</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light border-right-0"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+								<select class="form-control form-select" name="city" required>
+									<option value="">SELECT</option>
+									<option th:each="city: ${availableCities}" th:value="${city}">[[${city}]]</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 col-12 my-4">
+							<label for="check_in" class="form-label mb-1 font-weight-bold">CHECK IN</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light border-right-0"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+								<input class="form-control" type="date" name="check_in" value="1">
+							</div>
+						</div>
+						<div class="col-lg-6 col-12 my-4 mx-auto">
+							<label for="guests" class="form-label mb-1 font-weight-bold">GUESTS</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light border-right-0"><i class="fa fa-user" aria-hidden="true"></i></span>
+								<input class="form-control" type="number" name="guests" value="1" min="1">
+							</div>
+						</div>
+						<div class="col-lg-6 col-12 my-4">
+							<label for="check_in" class="form-label mb-1 font-weight-bold">CHECK OUT</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light border-right-0"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+								<input class="form-control" type="date" name="check_out" value="1">
+							</div>
+						</div>
+	
+						<div class="col-12 d-flex mt-5">
+							<button type="submit" class="px-5 py-3 btn btn-primary mx-auto rounded local-br-1">SEARCH</button>
+						</div>
+					</form>	
+				</div>
+				
+			</div>
+	
+			<div class="row local-mt-8 col-lg-11 col-12 p-0 mx-auto">
+	
+				<div id="reactRoot"></div>
+	
+			</div>
+
+
+			<div th:if="${param.signUpSuccess != null}" class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="successModalLabel">Verification Link Sent</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							Almost Done! A verification Link has been sent to your account. Please click on the link  that has just been sent to your email account to verify your email and finish your registration.
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div th:if="${param.forgotSuccess != null}" class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="successModalLabel">Verification Link Sent</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							A Verification Link has been sent to your email to verify your identity.
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div th:if="${param.successVerification != null}" class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="successModalLabel">Account Created Successfully!</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							Congratulations! Your Email has been verified.
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button class="btn btn-primary" data-bs-target="#loginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Login</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div th:if="${param.successResetPassword != null}" class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="successModalLabel">Password Reset Successfull!</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							Your Password has been reset successfully.
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button class="btn btn-primary" data-bs-target="#loginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Login</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		</main>
+
+		<div layout:fragment="extraJs">
+			<script th:if="${param.signUpSuccess != null}">
+				var successModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+				successModal.show();
+			</script>
+			<script th:if="${param.successVerification != null}">
+				var successModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+				successModal.show();
+			</script>
+			<script th:if="${param.forgotSuccess != null}">
+				var successModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+				successModal.show();
+			</script>
+			<script th:if="${param.successResetPassword != null}">
+				var successModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+				successModal.show();
+			</script>
+		</div>
+

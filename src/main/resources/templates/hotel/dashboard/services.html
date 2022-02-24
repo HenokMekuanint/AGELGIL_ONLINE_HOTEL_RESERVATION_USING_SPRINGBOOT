@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{hotel/dashboard/base.html}"
+	  >
+	  <head>
+		  <title layout:fragment="title">MANAGE YOUR HOTEL</title>
+	  </head>
+	<body>
+		
+		<main layout:fragment="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="d-flex">
+						<h1 class="local-fs-3 font-weight-bold">Services</h1>
+						<div class="ml-auto my-auto">
+						
+							<button type="button" class="btn btn-outline-primary  ml-auto px-4 rounded-pill" data-bs-toggle="modal" data-bs-target="#addServiceModal"><i class="fas fa-plus mr-3"></i>Add</button>
+						
+							<div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<form class="modal-content" action="/hotel/dashboard/services/add" method="post" enctype="multipart/form-data" th:object="${addServiceForm}">
+										<div class="modal-header">
+											<h5 class="modal-title" id="addServiceModalLabel">Add Service</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<input type="hidden" th:value="${_csrf.token}" name="_csrf">
+											<div class="mt-4">
+												<label for="name" class="form-label mb-1">Name</label>
+												<div class="input-group">
+													<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+													<input type="text" class="form-control border-left-0 bg-light" placeholder="Service Name" th:field="*{name}"  required>
+												</div>
+												<div th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></div>
+											</div>
+
+											<div class="mt-4">
+												<label for="unitPrice" class="form-label mb-1">Unit Price</label>
+												<div class="input-group">
+													<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+													<input type="number" class="form-control border-left-0 bg-light" placeholder="Unit Price" th:field="*{unitPrice}"  required>
+												</div>
+												<div th:if="${#fields.hasErrors('unitPrice')}" class="text-danger" th:errors="*{unitPrice}"></div>
+											</div>
+
+											<div class="mt-4">
+												<label for="serviceTypes" class="form-label mb-1">Service Type</label>
+												<div class="input-group">
+													<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+													<select type="text" class="form-control form-select border-left-0 bg-light" th:field="*{serviceType}"  required>
+														<option value="">Select</option>
+														<option th:each="type: ${serviceTypes}" th:value="${type.id}">[[${type.name}]]</option>
+													</select>
+												</div>
+												<div th:if="${#fields.hasErrors('serviceType')}" class="text-danger" th:errors="*{serviceType}"></div>
+											</div>
+
+											<div class="mt-4">
+												<label for="coverImage" class="form-label mb-1">Cover Image</label>
+												<div class="input-group">
+													<input type="file" class="form-control border-left-0 bg-light" th:field="*{coverImage}"  required>
+												</div>
+												<div th:if="${#fields.hasErrors('coverImage')}" class="text-danger" th:errors="*{coverImage}"></div>
+											</div>
+
+											<div class="mt-4">
+												<label for="availableUnits" class="form-label mb-1">Available Units</label>
+												<div class="input-group">
+													<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+													<input type="number" class="form-control border-left-0 bg-light" placeholder="Available Units" th:field="*{availableUnits}"  required>
+												</div>
+												<div th:if="${#fields.hasErrors('availableUnits')}" class="text-danger" th:errors="*{availableUnits}"></div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Save changes</button>
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="accordion my-4" th:each="serviceType: ${serviceTypes}" th:if="${hotel.getServiceByType(serviceType).size}!=0" th:with="services=${hotel.getServiceByType(serviceType)}" th:id="accordion + ${serviceType.id}">
+						<div class="accordion-item  border border-dark overflow-hidden rounded local-br-2 shadow-lg">
+							<h3 class="accordion-header bg-light" id="headingOne">
+								<div class="accordion-button px-4 py-3 text-dark font-weight-bold bg-white local-fs-5 d-flex" type="button" data-bs-toggle="collapse" th:data-bs-target='${"#accordionCollapse"}+${serviceType.id}' aria-expanded="true" aria-controls="collapseOne">
+									[[${serviceType.name}]]
+								</div>
+							</h3>
+							<div th:id="accordionCollapse + ${serviceType.id}" class="accordion-collapse collapse show" th:data-bs-parent='${"#accordion"} + ${serviceType.id}'> 
+								<div class="accordion-body">
+									<div class="container-fluid">
+										<div class="row py-5">
+											<div th:each="service: ${services}" class="col-lg-4 col-md-6 col-12 my-3">
+												<div class="card local-br-2 overflow-hidden shadow pb-3">
+													<img th:src="${media.getUrl(service.coverImage)}" class="card-img-top overflow-hidden" th:alt="${service.name}">
+													<div class="card-body">
+														<h4 class="font-weight-bold local-fs-0">[[${service.name}]]</h4>
+														<span>ETB [[${service.unitPrice}]] / <span class="text-lowercase">[[${serviceType.unit}]]</span></span>
+	
+														<div class="mt-3">
+															Available Units: [[${service.availableUnits}]]
+														</div>
+														<button type="button" class="btn btn-primary rounded px-4 mt-3" data-bs-toggle="modal" th:data-bs-target="${'#editService'+ service.id + 'Modal'}">
+															<i class="fas fa-pen"></i>
+															<span class="mx-2">EDIT</span>
+														</button>
+														<div class="modal fade" th:id="${'editService'+ service.id + 'Modal'}" tabindex="-1" th:aria-labelledby="${'#editService'+ service.id + 'ModalLabel'}" aria-hidden="true">
+															<div class="modal-dialog">
+																<form class="modal-content" action="/hotel/dashboard/services/edit" th:object="${editServiceForm}" method="post" enctype="multipart/form-data">
+																	<div class="modal-header">
+																		<h5 class="modal-title" th:id="${'editService'+ service.id + 'ModalLabel'}">Edit Service</h5>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																	</div>
+																	<div class="modal-body">
+																		<input type="hidden" th:value="${_csrf.token}" name="_csrf">
+																		<input type="hidden" th:value="${service.id}" name="service">
+																		<div class="mt-4">
+																			<label for="name" class="form-label mb-1">Name</label>
+																			<div class="input-group">
+																				<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+																				<input type="text" class="form-control border-left-0 bg-light" placeholder="Service Name" name="name" id="name" th:value="${service.name}" required>
+																			</div>
+																			<div th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></div>
+																		</div>
+							
+																		<div class="mt-4">
+																			<label for="unitPrice" class="form-label mb-1">Unit Price</label>
+																			<div class="input-group">
+																				<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+																				<input type="number" class="form-control border-left-0 bg-light" placeholder="Unit Price" name="unitPrice" id="unitPrice" th:value="${service.unitPrice}"  required>
+																			</div>
+																			<div th:if="${#fields.hasErrors('unitPrice')}" class="text-danger" th:errors="*{unitPrice}"></div>
+																		</div>
+							
+																		<div class="mt-4">
+																			<label for="coverImage" class="form-label mb-1">Cover Image</label>
+																			<div class="input-group">
+																				<input type="file" class="form-control border-left-0 bg-light" th:field="*{coverImage}"  required>
+																			</div>
+																			<div th:if="${#fields.hasErrors('coverImage')}" class="text-danger" th:errors="*{coverImage}"></div>
+																		</div>
+							
+																		<div class="mt-4">
+																			<label for="availableUnits" class="form-label mb-1">Available Units</label>
+																			<div class="input-group">
+																				<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+																				<input type="number" class="form-control border-left-0 bg-light" placeholder="Available Units" name="availableUnits" id="availableUnits" th:value="${service.availableUnits}"  required>
+																			</div>
+																			<div th:if="${#fields.hasErrors('availableUnits')}" class="text-danger" th:errors="*{availableUnits}"></div>
+																		</div>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																		<button type="submit" class="btn btn-primary">Save changes</button>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+
+		</main>
+
+	</body>
+
+</html>

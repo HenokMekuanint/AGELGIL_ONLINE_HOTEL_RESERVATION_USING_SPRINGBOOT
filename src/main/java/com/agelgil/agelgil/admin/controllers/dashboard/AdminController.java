@@ -32,7 +32,7 @@ public class AdminController extends AgelgilController{
 		if(principal == null)
 			return null;
 		return adminRepository.findByUser(
-			userRepository.findByUsername(principal.getName())
+			userRepository.findByUsernameAndVerified(principal.getName(), true)
 		);
 	}
 

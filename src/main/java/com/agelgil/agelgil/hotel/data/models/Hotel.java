@@ -1,6 +1,8 @@
 package com.agelgil.agelgil.hotel.data.models;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +20,7 @@ import javax.persistence.UniqueConstraint;
 import com.agelgil.agelgil.hotel.data.models.Service.ServiceType;
 import com.agelgil.agelgil.lib.data.models.auth.User;
 import com.agelgil.agelgil.lib.data.models.auth.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,6 +41,7 @@ public class Hotel extends UserType {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@JsonIgnore
 	@ManyToOne
 	private User user;
 
@@ -51,16 +55,15 @@ public class Hotel extends UserType {
 	private Float rating = 8.4f;
 
 	private String legalDocument;
-
 	
 	@OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Service> services;
 
-	private boolean verified = false;
-
 	private String profileImage;
 
 	private String coverImage;
+
+	private Boolean verified = false;
 
 	@Column(length = 1000)
 	private String description;
@@ -68,23 +71,25 @@ public class Hotel extends UserType {
 	@OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Image> gallery;
 
-	public Hotel(User user, String name, Location location, int standard, String legalDocuement, boolean verified,String profileImage, String coverImage, String description){
+	public Hotel(User user, String name, Location location, int standard, String legalDocuement,String profileImage, String coverImage, String description, Boolean verified){
 		this.user = user;
 		this.name = name;
 		this.location = location;
 		this.standard = standard;
 		this.legalDocument = legalDocuement;
-		this.verified = verified;
 		this.profileImage = profileImage;
 		this.coverImage = coverImage;
 		this.description = description;
+		this.verified = verified;
 	}
 
 	public List<Service> getServiceByType(ServiceType serviceType){
 		return getServices()
 					.stream()
 					.filter(service -> service.getServiceType() == serviceType)
-					.toList();
+					.collect(
+						Collectors.toList()
+					);
 
 	}
 

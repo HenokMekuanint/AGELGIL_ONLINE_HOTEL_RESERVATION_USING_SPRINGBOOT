@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+		<title layout:fragment="title">Agelgil Hotel</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 	
+		<link rel="stylesheet" th:href="@{/static/res/hotel/libs/bootstrap/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/static/res/lib/fontawesome/css/all.css}">
+		<link rel="stylesheet" th:href="@{/static/res/lib/css/local.css}">
+	</head>
+	<body class="bg-light">
+		<header class="" style="background-image:url('/static/res/hotel/home/images/paris.jpg'); background-size:cover;">
+			<nav class="navbar navbar-expand-lg navbar-light py-md-5 px-xl-5">
+				<div class="container-fluid">
+					<a class="navbar-brand col-lg-2 col-md-4 col-6 p-0 bg-light rounded p-3 local-br-1" href="/" >
+						<img th:src="@{/static/res/hotel/core/images/logo-horizontal.png}" class="col-10 p-0">
+					</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon text-light"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						
+						<div class="ml-lg-auto d-flex flex-column flex-lg-row mt-5 mt-lg-0">
+						
+							<div class="d-lg-flex d-block">
+								<div class="d-flex flex-column flex-lg-row mt-5 my-lg-auto" th:if="${hotel}==null">
+									<button class="btn btn-light mx-3 px-4 local-br-1" data-bs-toggle="modal" data-bs-target="#loginModal">LOGIN</button>
+									<button class="btn btn-primary mx-3 px-4 local-br-1 mt-lg-0 mt-3" data-bs-toggle="modal" data-bs-target="#signUpModal">SIGNUP</button>
+
+									<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-xl">
+											<div class="modal-content">
+												<div class="modal-body p-0">
+													<div class="row">
+														<div class="col-4 bg-primary text-light d-lg-flex d-none local-py-7">
+															<div class="m-auto col-10">
+																<div>
+																	<h2 class="font-weight-bold">Welcome Back!</h2>
+																	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas error sint modi nostrum porro </p>
+																</div>
+																<div class="local-mt-6">
+																	<p>Don't have an account, yet?</p>
+																	<button type="button" class="btn btn-outline-light rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#signUpModal">SIGNUP</button>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-8 col-12 d-flex local-py-7">
+															<div class="w-75 m-auto" layout:insert="~{lib/auth/components/login_form}"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="modal fade" id="signUpModal" tabindex="-1" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+											<div class="modal-content">
+												<div class="modal-body p-0">
+													<div class="row">
+														<div class="col-lg-8 col-12 d-flex local-py-7">
+
+															<div class="w-75 m-auto" >
+																<div class="w-75 m-auto" layout:insert="~{hotel/auth/components/signup_form}"></div>
+															</div>
+														</div>
+														<div class="col-4 bg-primary text-light d-lg-flex d-none local-py-7">
+															<div class="m-auto col-10">
+																<div>
+																	<h2 class="font-weight-bold">Hello, Friend!</h2>
+																	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas error sint modi nostrum porro </p>
+																</div>
+																<div class="local-mt-6">
+																	<p>Already have an account?</p>
+																	<button type="button" class="btn btn-outline-light rounded-pill px-5"  data-bs-toggle="modal" data-bs-target="#loginModal">SIGN IN</button>
+																</div>
+															</div>
+														</div>
+														
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="" th:unless="${hotel}==null">
+									<div class="bg-primary text-light px-4 py-2 rounded position-relative mx-5 my-auto">
+										<span href="#" class="dropdown-toggle" role="button" data-bs-toggle="dropdown"><i class="fa fa-user"></i><span class="ml-3" th:text="${hotel.name}"></span></span>
+										<ul class="dropdown-menu">
+											<li class="">
+												<form action="/logout" method="post">
+													<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+													<input type="submit" value="Logout" class="dropdown-item">
+												</form>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<section class="d-flex flex-column mt-5">
+				<div class="col-md-4 p-5 rounded local-ml-md-7 local-ml-lg-7  local-br-2 text-light" style="background-color: rgba(0,0,0,0.5);">
+					<h1 class="font-weight-bold display-4">WELCOME TO AGELGIL</h1>
+					<p class="mt-4">If you are a hotel enterprise and don't have sign up to agelgil platform then now is the time
+						sign up and provide all the neccessary information. Promote your hotel and resorts. If you have signed up
+						make sure to update your services
+					</p>
+					<div class="d-flex mt-4">
+						<button class="btn btn-light px-5 local-br-1" data-bs-toggle="modal" data-bs-target="#loginModal">LOGIN</button>
+						<button class="btn btn-primary ml-3 px-5 local-br-1" data-bs-toggle="modal" data-bs-target="#signUpModal">SIGNUP</button>
+					</div>
+				</div>
+				<div class="d-flex local-mt-7 local-mb-6">
+					<a href="#who-we-are" class="btn btn-light mx-auto font-weight-bold text-primary px-5 rounded-pill">READ MORE <i class="fa fa-arrow-down ml-3"></i></a>
+				</div>
+			</section>
+		</header>
+		<main class="container-fluid">
+			<section class="row" id="who-we-are">
+				<div class="d-flex col-md-6 col-12 bg-primary local-px-6 local-py-8">
+					<h1 class="display-2 font-weight-bold text-light m-auto">WHO<br/>WE<br/>ARE</h1>
+				</div>
+				<div class="d-flex col-md-6 col-12 local-px-lg-7 local-px-6 local-py-7 m-auto">
+					<p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum pariatur, recusandae deserunt nulla dolorum, reprehenderit quis iste nesciunt expedita minima odio tenetur officiis aut dolor aspernatur inventore, repellendus eius accusamus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, odit ipsum. Voluptatum, esse voluptates? Consectetur incidunt porro a adipisci voluptatibus harum vero perferendis, laudantium est esse ex odio quibusdam nihil. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi quasi accusantium quis veniam et, recusandae incidunt nesciunt eaque ratione sapiente mollitia quo magni voluptatibus iure laudantium sed nostrum libero eos?</p>
+				</div>
+			</section>
+			<section class="row flex-column-reverse flex-md-row">
+				<div class="d-flex col-md-6 col-12 local-px-lg-7 local-px-6 local-py-7 m-auto">
+					<p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum pariatur, recusandae deserunt nulla dolorum, reprehenderit quis iste nesciunt expedita minima odio tenetur officiis aut dolor aspernatur inventore, repellendus eius accusamus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, odit ipsum. Voluptatum, esse voluptates? Consectetur incidunt porro a adipisci voluptatibus harum vero perferendis, laudantium est esse ex odio quibusdam nihil. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi quasi accusantium quis veniam et, recusandae incidunt nesciunt eaque ratione sapiente mollitia quo magni voluptatibus iure laudantium sed nostrum libero eos?</p>
+				</div>
+				<div class="d-flex col-md-6 col-12 bg-primary px-0 local-py-8">
+					<h1 class="display-2 font-weight-bold text-light m-auto">WHAT<br/>WE<br/>DO</h1>
+				</div>
+			</section>
+			<section class="row">
+				<div class="d-flex col-md-6 col-12 bg-primary local-px-6 local-py-8">
+					<h1 class="display-4 font-weight-bold text-light m-auto">PROCE<br class="d-md-none"/>DURES</h1>
+				</div>
+				<div class="d-flex col-md-6 col-12 local-px-lg-7 local-px-6 local-py-7 m-auto">
+					<p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum pariatur, recusandae deserunt nulla dolorum, reprehenderit quis iste nesciunt expedita minima odio tenetur officiis aut dolor aspernatur inventore, repellendus eius accusamus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, odit ipsum. Voluptatum, esse voluptates? Consectetur incidunt porro a adipisci voluptatibus harum vero perferendis, laudantium est esse ex odio quibusdam nihil. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi quasi accusantium quis veniam et, recusandae incidunt nesciunt eaque ratione sapiente mollitia quo magni voluptatibus iure laudantium sed nostrum libero eos?</p>
+				</div>
+			</section>
+			<div class="d-flex">
+				<div class="mx-auto col-md-5 m-10 text-center local-my-7">
+					<h2 class="font-weight-bold">More Questions?</h2>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea enim asperiores ad fuga molestias!
+					</p>
+					<a href="mailto:admin@agelgil.com" class="btn btn-primary mt-5 px-5 local-br-1">CONTACT US</a>
+				</div>
+				
+			</div>
+		</main>
+		<footer>
+			<div class="d-flex flex-lg-row flex-column bg-primary text-light p-5">
+				<ul class="nav nav-dark flex-column my-lg-auto my-5">
+					<li class="nav-item" th:each="tab: ${footerTabs}">
+						<a class="nav-link text-light text-lg-left text-center" th:href="${tab.url}" th:text="${tab.text}"></a>
+					</li>
+				</ul>
+				<div class="col-lg-3 col-md-6 col-sm-9 col-11 mx-auto my-5 my-lg-auto">
+					<div class="col-7 p-3 bg-white local-br-2 m-auto">
+						<img th:src="@{/static/res/hotel/core/images/logo-horizontal.png}" class="w-100">
+					</div>
+					<div class="text-center mt-3">
+						Copyright &copy; 2021 | Agelgil 
+					</div>
+				</div>
+				<div class="my-lg-auto my-5">
+					<h4 class="text-center">Contact</h4>
+					<div class="my-lg-5 my-4">
+						<div class="d-flex" th:each="info: ${contactInformations}">
+							<span class="" th:text="${info.name}"></span>:
+							<a th:href="${info.url}" th:text="${info.value}" class="link col-8 text-right text-light ml-auto p-0"></a>
+						</div>
+					</div>
+					<a href="/" class="btn btn-light w-100">AGELGIL FOR CLIENTS</a>
+				</div>
+			</div>
+		</footer>
+		<div th:if="${signUpSuccess}" class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="successModalLabel">Reviewing Your Account</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						Almost Done! Your account is being reviewed. Our people will look into it and verify it as soon as possible. Once verified a verification Link will be sent to your account.
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script th:src="@{/static/res/lib/js/bootstrap.bundle.min.js}"></script>
+		<script th:if="${signUpError}">
+			var signUpModal = new bootstrap.Modal(document.getElementById('signUpModal'), {});
+			signUpModal.show();
+		</script>
+		<script th:if="${signUpSuccess}">
+			var successModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+			successModal.show();
+		</script>
+
+	</body>
+
+
+</html>

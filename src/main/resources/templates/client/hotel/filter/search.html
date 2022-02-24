@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{client/hotel/filter/filter_view.html}"
+	  >
+	<head>
+		  <title layout:fragment="title">[[${searchQuery}]] Search Results | AGELGIL</title>
+	</head>
+	<body>
+		<h2 layout:fragment="heading">Results for "[[${searchQuery}]]"</h2>
+	</body>
+</html>

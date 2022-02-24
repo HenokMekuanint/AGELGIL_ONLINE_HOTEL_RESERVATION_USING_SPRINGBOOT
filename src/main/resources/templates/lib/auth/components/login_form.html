@@ -1,0 +1,30 @@
+<form class="w-100" method="post" th:action="@{/login}">
+	<h2 class="font-weight-bold text-center mb-5">Sign in to Agelgil</h2>
+
+	<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+
+	<div th:if="${loginError}" class="text-danger">*Incorrect Username or password.</div>
+	<div class="mt-3">
+		<label for="email" class="form-label mb-1">E-Mail</label>
+		<div class="input-group">
+			<span class="input-group-text bg-light border-right-0"><i class="fas fa-user-alt text-secondary"></i></span>
+			<input type="email" class="form-control border-left-0 bg-light" name="username" id="username" placeholder="E-Mail" required>
+		</div>
+	</div>
+
+	<div class="mt-3">
+		<label for="password" class="form-label mb-1">Password</label>
+		<div class="input-group">
+			<span class="input-group-text bg-light border-right-0"><i class="fas fa-lock text-secondary"></i></span>
+			<input type="password" class="form-control border-left-0 bg-light" name="password" id="password" placeholder="Password" required>
+		</div>
+		<div class="text-right">
+			<a href="/auth/forgot-password" class="link">Forgot Password?</a>
+		</div>
+	</div>
+	
+	<div class="local-mt-6 d-flex">
+		<input type="submit" value="SIGN IN" class="mx-auto rounded-pill btn btn-primary py-2 px-5">
+	</div>
+	
+</form>

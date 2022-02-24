@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{client/base.html}"
+	  >
+	  <head>
+		  <title layout:fragment="title">[[${hotel.name}]] | AGELGIL</title>
+	  </head>
+	<body>
+		<main layout:fragment="main" class="container-fluid">
+			<section class="row">
+				<div class="col-12 p-0">
+					<img th:src="${media.getUrl(hotel.coverImage)}" class="w-100">
+				</div>
+			</section>
+
+			<div class="col-lg-11 col-md-12  mx-auto">
+				<div class="mt-5">
+					<h1 class="font-weight-bold">[[${hotel.name}]]</h1>
+					<span class="text-secondary"><i class="fas fa-map-marker-alt local-fs-4" aria-hidden="true"></i>[[${hotel.location.city}]], Ethiopia</span>
+				</div>
+				<section class="local-mt-lg-7 local-mt-6">
+					<div>
+						<h2 class="font-weight-bold">Services</h2>
+					</div>
+					<div class="accordion my-4 border border-dark" th:each="serviceType: ${serviceTypes}" th:if="${hotel.getServiceByType(serviceType).size}!=0" th:with="services=${hotel.getServiceByType(serviceType)}" th:id="accordion + ${serviceType.id}">
+						<div class="accordion-item">
+							<h3 class="accordion-header bg-light" id="headingOne">
+								<div class="accordion-button px-4 py-3 text-dark font-weight-bold bg-white local-fs-5 d-flex" type="button" data-bs-toggle="collapse" th:data-bs-target='${"#accordionCollapse"}+${serviceType.id}' aria-expanded="true" aria-controls="collapseOne">
+									[[${serviceType.name}]]
+								</div>
+							</h3>
+							<div th:id="accordionCollapse + ${serviceType.id}" class="accordion-collapse collapse" th:data-bs-parent='${"#accordion"} + ${serviceType.id}'> 
+								<div class="accordion-body">
+									<div class="container-fluid">
+										<div class="row py-5">
+											<div th:each="service: ${services}" class="col-lg-3 col-md-6 col-12 my-3">
+												<div class="card local-br-2 overflow-hidden shadow pb-3">
+													<img th:src="${media.getUrl(service.coverImage)}" class="card-img-top overflow-hidden" th:alt="${service.name}">
+													<div class="card-body">
+														<h4 class="font-weight-bold local-fs-0">[[${service.name}]]</h4>
+														<span>ETB [[${service.unitPrice}]] / <span class="text-lowercase">[[${serviceType.unit}]]</span></span>
+	
+														<form class="mt-5" th:action='${"/client/cart/add?redirect_url=/client/hotel/view/"}+${hotel.id}' method="post" th:object="${addToCartForm}">
+															<input type="hidden" th:value="${service.id}" name="service" id="service" >
+	
+															<label class="form-label font-weight-bold" for="units" th:text="${#strings.capitalize(serviceType.unit)}"></label>
+															<input type="number" name="units" id="units" value="1" min="1" class="form-control col-5" required>
+	
+															<div class="d-flex mt-4">
+																<input type="submit" value="ADD TO CART" class="btn btn-primary px-4 py-2">
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="local-mt-lg-7 local-mt-6">
+					<div>
+						<h2 class="font-weight-bold">Description</h2>
+					</div>
+					<p class="mt-5">[[${hotel.description}]]</p>
+				</section>
+
+				<section class="local-my-lg-7 local-my-6">
+					<div>
+						<h2 class="font-weight-bold">Location</h2>
+					</div>
+					<div class="mt-5 border border-dark" id="mapContainer" style="height: 40em;">
+					</div>
+				</section>
+
+			</div>
+		</main>
+		<div layout:fragment="extraJs">
+			<link rel="stylesheet" href="/static/res/lib/leaflet/leaflet.css">
+			<script src="/static/res/lib/leaflet/leaflet.js"></script>
+
+			<script type="text/javascript">
+
+				function parseLocation(locationString){
+					let locationTuple = locationString.split(",");
+					return {
+						'lat': locationTuple[0],
+						'lon': locationTuple[1]
+					}
+				}
+
+				var hotelLocationString = "[[${hotel.location.plusCode}]]";
+				let hotelLocation = parseLocation(hotelLocationString);
+				var map = L.map('mapContainer').setView([hotelLocation.lat, hotelLocation.lon], 14);
+		
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				}).addTo(map);
+		
+				L.marker([hotelLocation.lat, hotelLocation.lon]).addTo(map)
+					.bindPopup('Location');
+
+				
+					
+
+			</script>
+		</div>
+	</body>
+</html>		

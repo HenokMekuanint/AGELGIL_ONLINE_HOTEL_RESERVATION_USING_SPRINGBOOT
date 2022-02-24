@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "nouislider": "^15.5.1",
+    "nouislider-react": "^3.4.1",
+    "wnumb": "^1.2.0"
+  }
+}

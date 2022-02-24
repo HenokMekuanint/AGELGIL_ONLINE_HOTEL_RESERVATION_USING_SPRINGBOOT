@@ -1,5 +1,6 @@
 package com.agelgil.agelgil.hotel.data.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,6 +40,7 @@ public class Service {
 	@ManyToOne
 	private ServiceType serviceType;
 
+	@JsonIgnore
 	@ManyToOne
 	private Hotel hotel;
 
@@ -65,6 +69,7 @@ public class Service {
 		@GeneratedValue(strategy = GenerationType.SEQUENCE)
 		private Integer id;
 		
+		@Column(unique = true)
 		private String name;
 
 		@Enumerated(EnumType.STRING)

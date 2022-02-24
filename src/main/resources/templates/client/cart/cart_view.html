@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{client/base.html}"
+	  >
+	  <head>
+		  <title layout:fragment="title">MY CART | AGELGIL</title>
+	  </head>
+	<body>
+		<main layout:fragment="main" class="container-fluid local-mb-7">
+			<div class="row local-mt-7">
+				<h1 class="font-weight-bold local-fs-3 col-10 mx-auto">Service Cart</h1>
+			</div>
+			<div class="row local-mt-7">
+				<div class="container col-lg-9 col-11 m-auto">
+					<div class="row font-weight-bold mb-5 ">
+						<div class="col-lg-3 mx-auto d-lg-block d-none mt-auto"></div>
+						<h4 class="col-lg-2 col-5 mx-auto font-weight-bold local-fs-0 mt-auto">Services</h4>
+						<h4 class="col-2 mx-auto font-weight-bold text-center local-fs-0 mt-auto">Units</h4>
+						<h4 class="col-2 mx-auto font-weight-bold text-right local-fs-0 mt-auto">Price<br class="d-lg-none">(ETB)</h4>
+						<div class="col-1 mx-auto"></div>
+					</div>
+					<div th:each="item: ${cart.items}" th:with="service=${item.service}" class="row my-4">
+						<div class="col-3 m-auto d-lg-block d-none">
+							<img th:src="${media.getUrl(service.coverImage)}" th:alt="${service.name}" class="w-100">
+						</div>
+						
+						<div class="col-lg-2 col-5 m-auto">
+							<div class="font-weight-bold">[[${service.name}]]</div>
+							<div class="muted">@[[${service.hotel.name}]]</div>
+						</div>
+						
+						<div class="col-2 m-auto d-flex p-0">
+							<div class="d-flex mx-auto">
+								<!--<button class="btn btn-transparent">-</button>-->
+								<span class="mx-3 p-2 my-auto">[[${item.units}]]</span>
+								<!--<button class="btn btn-transparent">+</button>-->
+							</div>
+						</div>
+						
+						<div class="col-2 m-auto font-weight-bold text-right">[[${item.price}]]</div>
+						
+						<form class="col-1 m-auto" action="/client/cart/remove?redirect_url=/client/cart/view" method="post" th:object="${removeFromCartForm}">
+							<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+							<input type="hidden" name="cartItem" id="cartItem" th:value="${item.id}">
+							<button type="submit" class="text-danger btn transparent p-0"><i class="p-0 fas fa-window-close local-fs-4" aria-hidden="true"></i></button>
+						</form>
+					</div>
+					<div class="row font-weight-bold mb-5 border-top border-dark pt-5">
+						<div class="col-3 mx-auto"></div>
+						<div class="col-2 mx-auto font-weight-bold"></div>
+						<div class="col-2 mx-auto font-weight-bold text-center">Total</div>
+						<div class="col-2 mx-auto font-weight-bold text-right">[[${cart.totalPrice}]]</div>
+						<div class="col-1 mx-auto"></div>
+					</div>
+					<form class="d-flex" action="/client/cart/checkout/" method="post">
+						<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+						<button type="submit" class="btn btn-primary ml-auto mr-5 local-br-2 px-4 py-2">
+							CHECKOUT <i class="fa fa-arrow-right" aria-hidden="true"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>		

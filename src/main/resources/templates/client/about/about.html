@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{client/base.html}"
+	  >
+	  <head>
+		  <title layout:fragment="title">AGELGIL | ABOUT US</title>
+	  </head>
+	<body>
+		
+	<main layout:fragment="main" class="container-fluid">
+		<section class="row flex-md-row flex-column-reverse local-mt-7 local-mb-8">
+			<div class="col-md-6 col-12 d-flex p-0 pl-md-5 mt-md-0 local-mt-7">
+				<h1 class="text-center text-md-left w-md-75 display-2 font-weight-bold text-center my-auto ml-md-5 mx-auto">ABOUT<br/>US</h1>
+			</div>
+			<div class="col-md-6 col-12">
+				<img th:src="@{/static/res/client/about/images/group-cartoon.png}" class="w-100">
+			</div>
+		</section>
+
+		<section class="row">
+			<div class="d-flex col-md-5 mr-auto p-md-5 p-1 text-md-left text-center text-white bg-dark local-my-6" style="background-image: url(/static/res/client/about/images/who_we_are.jpg); background-size: cover;">
+				<div class="col-12 mx-auto p-md-5 px-3 py-5">
+					<h2 class="display-md-3 display-4 font-weight-bold">WHO WE ARE</h2>
+					<p class="mt-5 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore blanditiis beatae sed aperiam saepe molestiae natus, a esse odit ipsam , amet consectetur adipisicing elit. Iusto, perspiciatis voluptatibus cupiditate accusantium, maxime beatae iure earum voluptatem corporis harum dolore numquam quasi ullam quae asperiores, ea odit commodi vitae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia quasi voluptatibus, nesciunt ab minus. Obcaecati unde, veniam nostrum delectus quibusdam numquam molestias perferendis corrupti eius culpa vero amet dolores? Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni voluptate natus dicta ipsa repellendus amet quas itaque quisquam id aut tenetur iure fuga aliquam delectus illum, recusandae earum nemo. Quos. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et odit mollitia earum dignissimos! Tempore, iure voluptas? Magni, maiores eum, qui ex in molestiae aperiam repellendus distinctio nesciunt dolorem expedita fugiat.</p>
+				</div>
+			</div>
+
+			<div class="d-flex col-md-5 ml-auto p-md-5 p-1 text-md-left text-center text-white bg-dark local-my-6" style="background-image: url(/static/res/client/about/images/values.jpg); background-size: cover;">
+				<div class="col-12 mx-auto p-md-5 px-3 py-5">
+					<h2 class="display-md-3 display-4 font-weight-bold">VALUES</h2>
+					<p class="mt-5 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore blanditiis beatae sed aperiam saepe molestiae natus, a esse odit ipsam , amet consectetur adipisicing elit. Iusto, perspiciatis voluptatibus cupiditate accusantium, maxime beatae iure earum voluptatem corporis harum dolore numquam quasi ullam quae asperiores, ea odit commodi vitae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia quasi voluptatibus, nesciunt ab minus. Obcaecati unde, veniam nostrum delectus quibusdam numquam molestias perferendis corrupti eius culpa vero amet dolores? Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni voluptate natus dicta ipsa repellendus amet quas itaque quisquam id aut tenetur iure fuga aliquam delectus illum, recusandae earum nemo. Quos. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et odit mollitia earum dignissimos! Tempore, iure voluptas? Magni, maiores eum, qui ex in molestiae aperiam repellendus distinctio nesciunt dolorem expedita fugiat.</p>
+				</div>
+			</div>
+
+			<div class="d-flex col-md-5 mr-auto p-md-5 p-1 text-md-left text-center text-white bg-dark local-my-6" style="background-image: url(/static/res/client/about/images/mission.jpg); background-size: cover;">
+				<div class="col-12 mx-auto p-md-5 px-3 py-5">
+					<h2 class="display-md-3 display-4 font-weight-bold">MISSION</h2>
+					<p class="mt-5 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore blanditiis beatae sed aperiam saepe molestiae natus, a esse odit ipsam , amet consectetur adipisicing elit. Iusto, perspiciatis voluptatibus cupiditate accusantium, maxime beatae iure earum voluptatem corporis harum dolore numquam quasi ullam quae asperiores, ea odit commodi vitae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia quasi voluptatibus, nesciunt ab minus. Obcaecati unde, veniam nostrum delectus quibusdam numquam molestias perferendis corrupti eius culpa vero amet dolores? Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni voluptate natus dicta ipsa repellendus amet quas itaque quisquam id aut tenetur iure fuga aliquam delectus illum, recusandae earum nemo. Quos. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et odit mollitia earum dignissimos! Tempore, iure voluptas? Magni, maiores eum, qui ex in molestiae aperiam repellendus distinctio nesciunt dolorem expedita fugiat.</p>
+				</div>
+			</div>
+
+			<div class="d-flex col-md-5 ml-auto p-md-5 p-1 text-md-left text-center text-white bg-dark local-my-6" style="background-image: url(/static/res/client/about/images/vision.jpg); background-size: cover;">
+				<div class="col-12 mx-auto p-md-5 px-3 py-5">
+					<h2 class="display-md-3 display-4 font-weight-bold">VISION</h2>
+					<p class="mt-5 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore blanditiis beatae sed aperiam saepe molestiae natus, a esse odit ipsam , amet consectetur adipisicing elit. Iusto, perspiciatis voluptatibus cupiditate accusantium, maxime beatae iure earum voluptatem corporis harum dolore numquam quasi ullam quae asperiores, ea odit commodi vitae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia quasi voluptatibus, nesciunt ab minus. Obcaecati unde, veniam nostrum delectus quibusdam numquam molestias perferendis corrupti eius culpa vero amet dolores? Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni voluptate natus dicta ipsa repellendus amet quas itaque quisquam id aut tenetur iure fuga aliquam delectus illum, recusandae earum nemo. Quos. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et odit mollitia earum dignissimos! Tempore, iure voluptas? Magni, maiores eum, qui ex in molestiae aperiam repellendus distinctio nesciunt dolorem expedita fugiat.</p>
+				</div>
+			</div>
+			
+			
+			
+		</section>
+
+		<section class="py-5 d-flex flex-column local-my-7">
+			<h2 class="text-center">HAVE MORE QUESTIONS?</h2>
+			<a href="mailto:admin@agelgil.com" class="btn btn-primary rounded-pill mx-auto px-5 py-3 mt-3">CONTACT US</a>
+		</section>
+
+	</main>
+
+	</body>
+
+</html>

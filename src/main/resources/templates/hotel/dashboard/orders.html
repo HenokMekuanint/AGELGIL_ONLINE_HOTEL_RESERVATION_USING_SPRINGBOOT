@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{hotel/dashboard/base.html}"
+	  >
+	  <head>
+		  <title layout:fragment="title">MANAGE YOUR HOTEL</title>
+	  </head>
+	<body>
+		
+		<main layout:fragment="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="">
+						<h1 class="local-fs-3 font-weight-bold">Orders</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="accordion my-4" th:id="ordersAccordion">
+						<div class="accordion-item  border border-dark overflow-hidden rounded" th:each="order: ${orders}" th:with="client=${order.client}">
+							<h3 class="accordion-header bg-light" id="headingOne">
+								<div class="accordion-button px-4 py-3 text-dark bg-white local-fs-5 d-flex" type="button" data-bs-toggle="collapse" th:data-bs-target='${"#accordionCollapse"}+${order.id}' aria-expanded="true" aria-controls="collapseOne">
+									[[${client.fullName}]]
+								</div>
+							</h3>
+							<div th:id="accordionCollapse + ${order.id}" class="accordion-collapse collapse" th:data-bs-parent='ordersAccordion'> 
+								<div class="accordion-body">
+									<div class="container-fluid">
+										<div class="row py-3 font-weight-bold border-bottom">
+											<div class="col-lg-4 col-8">
+												Service Name
+											</div>
+											<div class="col-lg-3 col-4 text-center">
+												Quantity
+											</div>
+										</div>
+										<div th:each="item: ${order.items}" class="row border-bottom  py-3">
+											<div class="col-lg-4 col-8">
+												[[${item.service.name}]]
+											</div>
+											<div class="col-lg-3 col-4 text-center">
+												[[${item.units}]]
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+
+		</main>
+
+	</body>
+
+</html>

@@ -1,0 +1,14 @@
+{
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Spring Boot-AgelgilApplication<agelgil>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"console": "internalConsole",
+			"mainClass": "com.agelgil.agelgil.AgelgilApplication",
+			"projectName": "agelgil",
+			"args": ""
+		}
+	]
+}
