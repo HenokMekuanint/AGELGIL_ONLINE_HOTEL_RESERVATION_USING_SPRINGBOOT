@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{admin/dashboard/base.html}"
+	  >
+	  <head>
+		  <title layout:fragment="title">MANAGE YOUR HOTEL</title>
+	  </head>
+	<body>
+		
+		<main layout:fragment="main">
+			<div class="container">
+				<h1 class="fw-bold">HOTELS</h1>
+				<div class="row fw-bold fs-4 mt-5 pb-5 border-bottom">
+					<div class="col-4">
+						Name
+					</div>
+					<div class="col-4">
+						Status
+					</div>
+					<div class="col-4">
+
+					</div>
+				</div>
+				<div th:each="hotel: ${hotels}" class="row py-4 border-bottom mt-5">
+					<div class="col-4 fw-bold">
+						[[${hotel.name}]]
+					</div>
+					<div class="col-4">
+						<span th:if="${hotel.verified}">Verified</span>
+						<span th:if="${!hotel.verified}">Not Verified</span>
+					</div>
+					<div class="col ml-auto text-right d-flex">
+						<button class="btn btn-outline-success ml-auto rounded rounded-pill px-5" data-bs-toggle="modal" th:data-bs-target="${'#modal'+hotel.id}">VIEW</button>
+
+						<div class="modal fade" th:id="${'modal'+hotel.id}" tabindex="-1" role="dialog" >
+							<div class="modal-dialog" role="document">
+								<div class="modal-content" action="/admin/dashboard/verify" method="post">
+									<div class="modal-header">
+										<h5 class="modal-title">[[${hotel.name}]]</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<div class="row my-3 border py-lg-3">
+											<div class="col fw-bold text-left">
+												Name
+											</div>
+											<div class="col text-right">
+												[[${hotel.name}]]
+											</div>
+										</div>
+
+										<div class="row my-3 border-bottom py-lg-3">
+											<div class="col fw-bold text-left">
+												City
+											</div>
+											<div class="col text-right">
+												[[${hotel.location.city}]]
+											</div>
+										</div>
+										
+										<div class="row my-3 border-bottom py-lg-3	">
+											<div class="col fw-bold text-left">
+												Plus Code
+											</div>
+											<div class="col text-right">
+												[[${hotel.location.plusCode}]]
+											</div>
+										</div>
+
+
+										<div class="row my-3 border-bottom py-lg-3	">
+											<div class="col fw-bold text-left">
+												Standard
+											</div>
+											<div class="col text-right">
+												[[${hotel.standard}]]
+											</div>
+										</div>
+
+
+										<div class="row my-3 border-bottom py-lg-3	">
+											<div class="col fw-bold text-left">
+												Legal Document
+											</div>
+											<div class="col text-right">
+												<a th:href="${media.getUrl(hotel.legalDocument)}" target="_blank" class="btn btn-success">VIEW</a>
+											</div>
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										<form action="/admin/dashbaord/hotels/delete" method="post">
+											<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+											<input type="hidden" th:value="${hotel.id}" name="hotel">
+											<input type="submit" class="btn btn-danger" value="DELETE">
+										</form>
+										<form action="/admin/dashboard/hotels/verify" method="post" th:if="${!hotel.verified}">
+											<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+											<input type="hidden" th:value="${hotel.id}" name="hotel">
+											<input type="submit" class="btn btn-success" value="VERIFY">
+										</form>
+									
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+			</div>
+		</main>
+
+	</body>
+
+</html>

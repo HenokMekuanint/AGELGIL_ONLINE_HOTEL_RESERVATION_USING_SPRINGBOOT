@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+	<head>
+		<title layout:fragment="title">Agelgil Admin</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 	
+		<link rel="stylesheet" th:href="@{/static/hotel/libs/bootstrap/bootstrapo.css}">
+		<link rel="stylesheet" th:href="@{/static/hotel/libs/bootstrap/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/static/lib/fontawesome/css/all.css}">
+		<link rel="stylesheet" th:href="@{/static/lib/css/local.css}">
+	</head>
+	<body class="container-fluid bg-light">
+		<div class="row vh-100">
+			
+			<div class="d-block d-lg-none position-absolute local-zi-1" style="top: 0vh; left: 0vh;">
+				<button class="btn btn-light" onclick="document.getElementById('navBar').classList.toggle('d-none')" ><i class="fas fa-bars" aria-hidden="true"></i></button>
+			</div>
+			
+<<<<<<< HEAD
+=======
+			<div class="col-lg-3 col-12 h-100 py-lg-3 px-lg-5 p-0 position-fixed local-zi-1 d-none d-lg-block" id="navBar">
+				<nav class="h-100 bg-primary local-br-lg-3 local-br-0 rounded mx-auto py-3 px-4" style="box-shadow: 0 0rem 1rem rgb(0, 0, 0) !important;">
+					<div class="bg-white rounded local-br-0 local-br-2 p-2 d-flex">
+						<img src="/static/hotel/core/images/logo-horizontal.png" class="col-11 mx-auto">
+					</div>
+					<ul class="mt-5 nav flex-column">
+						<li th:each="tab: ${navTabs}" class="nav-item my-2">
+							<a th:href="${tab.url}" class="nav-link text-white w-100 px-3 py-3 d-flex">
+								<i th:class="${tab.icon}+' local-fs-4'" aria-hidden="true"></i>
+								<span class="my-auto ml-4">[[${tab.text}]]</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+>>>>>>> 8953eb0f8c1aeabb43e045f293faf7b38a4da5a5
+			<div class="col-lg-9 col-12 v-100 ml-auto p-lg-5 p-1">
+				<header class="d-flex mb-5">
+					<div class="ml-auto position-relative">
+						<button class="dropdown-toggle btn btn-outline-success px-4 py-2 rounded rounded-pill" role="button" data-bs-toggle="dropdown"><i class="fa fa-user"></i><span class="ml-3">[[${admin.firstName}]] [[${admin.lastName}]]</span></button>
+						<ul class="dropdown-menu">
+							<li class="">
+								<form action="/logout" method="post">
+									<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+									<input type="submit" value="Logout" class="dropdown-item">
+								</form>
+							</li>
+						</ul>
+					</div>
+				</header>
+				<main class="w-100" layout:fragment="main">
+
+				</main>
+				
+			</div>
+		</div>
+		
+		<script src="/static/lib/js/bootstrap.bundle.min.js"></script>
+	</body>
+	
+	  
+
+
+ </html>
